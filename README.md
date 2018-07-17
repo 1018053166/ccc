@@ -1,22 +1,41 @@
 
-Application created by [ThinkJS](http://www.thinkjs.org)
-
-## Install dependencies
+## 安装依赖包
 
 ```
 yarn install
 ```
+```
+本地没装yarn的先装下yarn，https://yarnpkg.com/zh-Hans/docs/install#mac-stable
+```
 
-## Start server
+## 开发
 
 ```
 npm start
 ```
 
-## Deploy with pm2
-
-Use pm2 to deploy app on production enviroment.
+## 编译
 
 ```
-pm2 startOrReload pm2.json
+npm compile
+```
+
+## 前端安装依赖包
+
+
+```
+cd client
+yarn install
+```
+
+## 开发
+
+```
+npm run dev
+```
+
+## 编译
+
+```
+npm run build
 ```
