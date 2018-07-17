@@ -17,7 +17,7 @@ npm start
 ## 编译
 
 ```
-npm compile
+npm run compile
 ```
 
 ## 前端安装依赖包
