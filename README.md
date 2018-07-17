@@ -4,7 +4,7 @@ Application created by [ThinkJS](http://www.thinkjs.org)
 ## Install dependencies
 
 ```
-npm install
+yarn install
 ```
 
 ## Start server
