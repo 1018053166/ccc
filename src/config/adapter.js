@@ -1,5 +1,6 @@
 const fileCache = require('think-cache-file');
 const fileSession = require('think-session-file');
+const sqlite = require('think-model-sqlite');
 const {Console, File, DateFile} = require('think-logger3');
 const path = require('path');
 const isDev = think.env === 'development';
@@ -26,18 +27,13 @@ exports.cache = {
  * @type {Object}
  */
 exports.model = {
-  type: 'mongo',
-  common: {
-    logConnect: isDev,
-    logSql: isDev,
-    logger: msg => think.logger.info(msg)
-  },
-  mongo: {
-    host: '127.0.0.1',
-    port: 27017,
-    user: '',
-    password: '',
-    database: 'ccc'
+  type: 'sqlite',
+  sqlite: {
+    handle: sqlite, // Adapter handle
+    path: path.join(think.ROOT_PATH, 'runtime/sqlite'), // sqlite 保存的目录
+    database: 'ccc', // 数据库名
+    connectionLimit: 1, // 连接池的连接个数，默认为 1
+    prefix: '', // 数据表前缀，如果一个数据库里有多个项目，那项目之间的数据表可以通过前缀来区分
   }
 };
 
