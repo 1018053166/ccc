@@ -1,5 +1,5 @@
 // default config
 module.exports = {
-  port: 9000,
+  port: 8000,
   workers: 1
 };

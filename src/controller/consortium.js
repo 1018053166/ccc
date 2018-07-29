@@ -5,7 +5,9 @@ module.exports = class extends Base {
     return this.success({ code: 200, message: 'consortium info' });
   }
 
-  createAction() {
+  async createAction() {
+    think.service('web3')
+
     return this.success({ code: 200, message: 'consortium create' });
   }
 
