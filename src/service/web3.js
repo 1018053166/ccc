@@ -12,7 +12,7 @@ module.exports = class extends think.Service {
 
       think.logger.debug('start crontab')
       const crontab = [{
-        interval: '3s',
+        interval: '30s',
         immediate: true,
         handle: async () => {
           try {

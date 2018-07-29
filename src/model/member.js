@@ -10,4 +10,8 @@ module.exports = class extends think.Model {
       );
     `);
   }
+
+  getList(index, size) {
+    return this.page(index, size).countSelect();
+  }
 };
