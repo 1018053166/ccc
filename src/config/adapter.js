@@ -1,6 +1,7 @@
 const fileCache = require('think-cache-file');
 const fileSession = require('think-session-file');
 const sqlite = require('think-model-sqlite');
+const socketio = require('think-websocket-socket.io');
 const {Console, File, DateFile} = require('think-logger3');
 const path = require('path');
 const isDev = think.env === 'development';
@@ -82,3 +83,20 @@ exports.logger = {
     filename: path.join(think.ROOT_PATH, 'logs/app.log')
   }
 };
+
+exports.websocket = {
+  type: 'socketio',
+  common: {
+    // common config
+  },
+  socketio: {
+    handle: socketio,
+    allowOrigin: ['localhost:8000', 'localhost:8001'],  // 默认所有的域名都允许访问
+    path: '/socket.io',             // 默认 '/socket.io'
+    adapter: null,                  // 默认无 adapter
+    messages: [{
+      open: '/websocket/open',
+      close: '/websocket/close'
+    }]
+  }
+}

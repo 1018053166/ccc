@@ -62,7 +62,23 @@ module.exports = (options = {}) => ({
         target: 'http://127.0.0.1:8000',
         changeOrigin: true
       },
-      '/user/': {
+      '/block/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/consortium/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/member/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/message/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/node/': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: true
       }

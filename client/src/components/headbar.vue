@@ -33,7 +33,7 @@
       }
     },
     mounted: function() {
-      this.axios('/user/index').then(res => {
+      this.axios('/index/username').then(res => {
         this.username = res.data.data
       })
     }

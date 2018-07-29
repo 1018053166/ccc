@@ -19,6 +19,8 @@
     "think-model-sqlite": "^1.1.1",
     "think-session": "^1.0.0",
     "think-session-file": "^1.0.5",
+    "think-websocket": "^1.0.6",
+    "think-websocket-socket.io": "^1.0.10",
     "thinkjs": "^3.0.0",
     "web3": "^1.0.0-beta.35"
   },

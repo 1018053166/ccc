@@ -21,6 +21,14 @@ export default {
   mounted: function() {
     
   },
+  sockets:{
+    connect: function(){
+      console.log('socket connected')
+    },
+    addMember: function(val){
+      console.log(val)
+    }
+  },
   methods: {
     
   },
