@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     区块链浏览器
-  </div>
+  </main>
 </template>
 
 <script>

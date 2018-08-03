@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     APIs
-  </div>
+  </main>
 </template>
 
 <script>

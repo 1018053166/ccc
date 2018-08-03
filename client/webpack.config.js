@@ -58,8 +58,8 @@ module.exports = (options = {}) => ({
     host: '127.0.0.1',
     port: 8001,
     proxy: {
-      '/index/': {
-        target: 'http://127.0.0.1:8000',
+      '/api/': {
+        target: 'http://127.0.0.1:8421',
         changeOrigin: true
       },
       '/block/': {

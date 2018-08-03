@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     联盟信息
-  </div>
+  </main>
 </template>
 
 <script>

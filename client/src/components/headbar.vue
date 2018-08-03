@@ -1,19 +1,11 @@
 <template>
-  <div class="header">
-    <div class="logo">Taireum</div>
-    <div class="user-info">
-      <el-dropdown trigger="click" @command="handleCommand">
-        <div class="zd-dropdown-link">
-          <img :src="require('../assets/img/img.jpg')">
-          <span>{{username}}</span>
-        </div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="set">设置</el-dropdown-item>
-          <el-dropdown-item command="signout">退出</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-  </div>
+  <header class="el-header ccc-heaher">
+    <img :src="require('../assets/logo.svg')" class="header-logo">
+    <ul class="header-operations">
+      <li>联盟设置</li> 
+      <li>联盟消息</li> 
+    </ul>
+  </header>
 </template>
 <script>
   export default {
@@ -33,54 +25,50 @@
       }
     },
     mounted: function() {
-      this.axios('/index/username').then(res => {
-        this.username = res.data.data
-      })
+      // this.axios('/index/username').then(res => {
+      //   this.username = res.data.data
+      // })
     }
   }
 </script>
 
 <style scoped>
-  .header {
-      position: relative;
-      box-sizing: border-box;
-      width: 100%;
-      height: 54px;
-      background-color: #fff;
+  .header-logo {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
-  .logo{
-      float: left;
-      height: inherit;
-      display: inline-flex;
-      align-items: center;
+  .ccc-heaher {
+    height: 80px; 
+    background-color: rgb(64, 158, 255);
+    position:relative;
   }
-  .logo>img{
-    height: 40px;
-    margin-left: 20px;
+  ul {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+    padding: 0;
+    margin: 0;
   }
-  .user-info {
-      float: right;
-      padding-right: 30px;
-      color: #000;
-      height: inherit;
+  .header-operations {
+    display: inline-block;
+    float: right;
+    padding-right: 30px;
+    height: 100%;
   }
-  .zd-dropdown-link{
-      display: inline-flex;
-      align-items: center;
-      color: #000;
-      cursor: pointer;
-      height: 54px;
+  .header-operations li {
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 10px;
+    margin: 0 10px;
+    line-height: 80px;
+    cursor: pointer;
   }
-  .zd-dropdown-link>img{
-      width:30px;
-      height:30px;
-      border-radius: 50%;
-      margin-right: 10px;
-  }
-  .zd-dropdown-link>span{
-    font-size: 12px;
-  }
-  .el-dropdown-menu__item{
-      text-align: center;
-  }
+
 </style>

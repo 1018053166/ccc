@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     Release Notes
-  </div>
+  </main>
 </template>
 
 <script>

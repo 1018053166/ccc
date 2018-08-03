@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     一键联盟
-  </div>
+  </main>
 </template>
 
 <script>
