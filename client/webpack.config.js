@@ -59,7 +59,7 @@ module.exports = (options = {}) => ({
     port: 8001,
     proxy: {
       '/api/': {
-        target: 'http://127.0.0.1:8421',
+        target: 'http://10.200.22.207:8421',
         changeOrigin: true
       },
       '/block/': {

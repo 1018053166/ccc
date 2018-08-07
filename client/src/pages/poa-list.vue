@@ -27,6 +27,10 @@
         label="所有者地址">
       </el-table-column>
       <el-table-column
+        prop="enode"
+        label="节点地址地址">
+      </el-table-column>
+      <el-table-column
         prop="stat"
         label="状态">
       </el-table-column>
@@ -35,16 +39,22 @@
         label="操作"
         width="100">
         <template slot-scope="scope">
-          <el-button @click="handleUpdate(scope.row)" type="primary" size="small">编辑</el-button>
+          <el-button @click="handleUpdate(scope.row)" type="primary" size="small" v-if="scope.row.owner.toLocaleLowerCase() == coinbase">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog 
+      v-loading="loading"
+      element-loading-text="拼命上链中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      :title="textMap[dialogStatus]" 
+      :visible.sync="dialogFormVisible">
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
         
-        <el-form-item label="来自" prop="from">
-          <el-input v-model="temp.from"></el-input>
-        </el-form-item>
+        <!-- <el-form-item label="公司ID" prop="companyid">
+          <el-input v-model="temp.companyid"></el-input>
+        </el-form-item> -->
         <el-form-item label="公司名" prop="companyname">
           <el-input v-model="temp.companyname"></el-input>
         </el-form-item>
@@ -72,11 +82,16 @@
 </template>
 
 <script>
+  import _ from 'lodash'
   export default {
     data (){
       return {
         members: [],
+        enodes: [],
+        coinbase: '',
+        loading: false,
         temp: {
+          companyid: '',
           from: '',
           companyname: '',
           email: '',
@@ -91,7 +106,7 @@
           create: 'Create'
         },
         rules: {
-          from: [{ required: true, message: 'from is required', trigger: 'change' }],
+          // from: [{ required: true, message: 'from is required', trigger: 'change' }],
           companyname: [{ required: true, message: 'companyname is required', trigger: 'blur' }],
           email: [{ required: true, message: 'email is required', trigger: 'blur' }],
           enode: [{ required: true, message: 'enode is required', trigger: 'blur' }],
@@ -102,8 +117,25 @@
     },
     methods: {
       queryList() {
-        this.axios('/api/company').then(res => {
-          this.members = res.data
+        return this.axios('/api/company').then(res => {
+          // this.members = _.filter(res.data, ['stat', '1']);
+          res.data.map(member => {
+            if (_.indexOf(this.enodes, member.enode) > -1) {
+              this.members.push(member)
+            }
+          })
+        })
+      },
+      queryCoinbase() {
+        return this.axios('/api/coinbase').then(res => {
+          console.log(res)
+          this.coinbase = res.data.message
+        })
+      },
+      queryEnodes() {
+        return this.axios('/api/enode').then(res => {
+          console.log(res)
+          this.enodes = res.data
         })
       },
       resetTemp() {
@@ -127,11 +159,12 @@
       createData() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
+            this.loading = true
             this.axios.post('/api/v1', {
               source: 'ccc',
               method: 'add',
               argv: {
-                _from: this.temp.from,
+                _from: this.coinbase,
                 _companyname: this.temp.companyname,
                 _email: this.temp.email,
                 _enode: this.temp.enode,
@@ -139,7 +172,7 @@
                 _remark: this.temp.remark
               }
             }).then(res => {
-              console.log(res)
+              this.loading = false
               this.dialogFormVisible = false
               this.$notify({
                 title: '成功',
@@ -163,20 +196,27 @@
       updateData() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
+            this.loading = true
             const tempData = Object.assign({}, this.temp)
             tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-            updateArticle(tempData).then(() => {
-              for (const v of this.list) {
-                if (v.id === this.temp.id) {
-                  const index = this.list.indexOf(v)
-                  this.list.splice(index, 1, this.temp)
-                  break
-                }
+            this.axios.post('/api/v1', {
+              source: 'ccc',
+              method: 'update',
+              argv: {
+                _from: this.coinbase,
+                _companyid: this.temp.companyid,
+                _email: this.temp.email,
+                _enode: this.temp.enode,
+                // _address: this.temp.owner,
+                _remark: this.temp.remark,
+                _stat: 1
               }
+            }).then(res => {
+              this.loading = false
               this.dialogFormVisible = false
               this.$notify({
                 title: '成功',
-                message: '更新成功',
+                message: '创建成功',
                 type: 'success',
                 duration: 2000
               })
@@ -185,8 +225,10 @@
         })
       }
     },
-    mounted: function() {
-      this.queryList()
+    mounted: async function() {
+      await this.queryCoinbase()
+      await this.queryEnodes()
+      await this.queryList()
     }
     
   }
