@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     节点监控
-  </div>
+  </main>
 </template>
 
 <script>

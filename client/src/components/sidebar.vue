@@ -1,30 +1,38 @@
 <template>
-    <div class="sidebar">
-        <el-menu :default-active="onRoutes" unique-opened router>
-            <template v-for="item in items">
-                <template v-if="item.subs">
-                    <el-submenu :index="item.index">
-                        <template slot="title"><i :class="'fa '+item.icon"></i>{{ item.title }}</template>
-                        <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
-                        </el-menu-item>
-                    </el-submenu>
+    <aside  class="el-aside menu" :style="isCollapse?'':'width: 200px;'">
+      <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+        <el-radio-button :label="false">展开</el-radio-button>
+        <el-radio-button :label="true">收起</el-radio-button>
+      </el-radio-group> -->
+      <el-menu :default-active="onRoutes" unique-opened router class="el-menu-vertical-demo">
+        <template v-for="item in items">
+          <template v-if="item.subs">
+            <el-submenu :index="item.index">
+                <template slot="title">
+                  <i :class="'el-'+item.icon"></i>
+                  <span slot="title">{{ item.title }}</span>
                 </template>
-                <template v-else>
-                    <el-menu-item :index="item.index">
-                        <i :class="'fa '+item.icon"></i>{{ item.title }}
-                    </el-menu-item>
-                </template>
-            </template>
-        </el-menu>
-    </div>
+                <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}</el-menu-item>
+            </el-submenu>
+          </template>
+          <template v-else>
+            <el-menu-item :index="item.index">
+                <i :class="'el-'+item.icon"></i>
+                <span slot="title">{{ item.title }}</span>
+            </el-menu-item>
+          </template>
+        </template>
+      </el-menu>
+    </aside>
 </template>
 
 <script>
   export default {
     data () {
       return {
+        isCollapse: false,
         items: [{
-          icon: 'fa-info',
+          icon: 'icon-location',
           title: '概览',
           index: '1',
           subs: [{
@@ -35,7 +43,7 @@
             title: '联盟信息'
           }]
         }, {
-          icon: 'fa-sitemap',
+          icon: 'icon-location',
           title: '联盟管理',
           index: '2',
           subs: [{
@@ -49,7 +57,7 @@
             title: 'POA通道管理'
           }]
         }, {
-          icon: 'fa-users',
+          icon: 'icon-location',
           title: '区块链',
           index: '3',
           subs: [{
@@ -69,7 +77,7 @@
             title: '区块链浏览器'
           }]
         }, {
-          icon: 'fa-tablet',
+          icon: 'icon-location',
           title: '消息管理',
           index: '4',
           subs: [{
@@ -77,7 +85,7 @@
             title: '消息列表'
           }]
         }, {
-          icon: 'fa-tablet',
+          icon: 'icon-location',
           title: '社区支持',
           index: '5',
           subs: [{
@@ -96,21 +104,5 @@
 </script>
 
 <style scoped>
-  i{
-    margin-right: 10px;
-    width: 16px;
-    text-align: center;
-  }
-  .sidebar{
-      display: block;
-      position: absolute;
-      width: 200px;
-      left: 0;
-      top: 54px;
-      bottom:0;
-      /*background: #2E363F;*/
-  }
-  .sidebar>ul{
-      height:100%;
-  }
+  
 </style>

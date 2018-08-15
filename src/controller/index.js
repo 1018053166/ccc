@@ -2,6 +2,10 @@ const Base = require('./base.js');
 
 module.exports = class extends Base {
   indexAction() {
-    return this.success({ code: 200, message: 'success' });
+    return this.redirect('/index.html');
+  }
+
+  usernameAction() {
+    return this.success('xiao8')
   }
 };

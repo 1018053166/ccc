@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     POA通道管理
-  </div>
+  </main>
 </template>
 
 <script>

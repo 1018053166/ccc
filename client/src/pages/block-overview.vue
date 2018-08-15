@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     区块概览
-  </div>
+  </main>
 </template>
 
 <script>

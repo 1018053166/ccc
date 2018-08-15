@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     智能合约
-  </div>
+  </main>
 </template>
 
 <script>

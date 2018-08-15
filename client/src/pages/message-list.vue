@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     消息列表
-  </div>
+  </main>
 </template>
 
 <script>

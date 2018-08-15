@@ -56,14 +56,30 @@ module.exports = (options = {}) => ({
   },
   devServer: {
     host: '127.0.0.1',
-    port: 8010,
+    port: 8001,
     proxy: {
-      '/index/': {
-        target: 'http://127.0.0.1:8360',
+      '/api/': {
+        target: 'http://10.200.22.207:8421',
         changeOrigin: true
       },
-      '/user/': {
-        target: 'http://127.0.0.1:8360',
+      '/block/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/consortium/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/member/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/message/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/node/': {
+        target: 'http://127.0.0.1:8000',
         changeOrigin: true
       }
     },
