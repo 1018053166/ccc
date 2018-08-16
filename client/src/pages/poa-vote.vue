@@ -38,7 +38,7 @@
         label="操作"
         width="180">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row, true)" type="success" size="small">投票</el-button>
+          <el-button @click="handleClick(scope.row)" type="success" size="small">投票</el-button>
           <!-- <el-button @click="handleClick(scope.row, false)" type="danger" size="small">反对</el-button> -->
         </template>
       </el-table-column>
@@ -61,7 +61,7 @@
       queryList() {
         return this.axios('/api/company').then(res => {
           res.data.map(member => {
-            if (member.owner.toLowerCase() == this.coinbase) this.companyid = member.companyid
+            if (member.owner.toLowerCase() == this.coinbase.toLowerCase()) this.companyid = member.companyid
             if (_.indexOf(this.enodes, member.enode) == -1) {
               this.members.push(member)
             }
@@ -80,7 +80,7 @@
           this.enodes = res.data
         })
       },
-      handleClick(row, vote) {
+      handleClick(row) {
         this.loading = true
         this.axios.post('/api/v1', {
             "source": "ccc",
@@ -91,9 +91,15 @@
                 "_tocompanyid": row.companyid
             }
         })
-        .then(response => {
+        .then(res => {
           this.loading = false
-          console.log(response);
+          console.log(res);
+          this.$notify({
+                title: '成功',
+                message: res.data.message,
+                type: 'success',
+                duration: 2000
+              })
         })
         .catch(error => {
           console.log(error);

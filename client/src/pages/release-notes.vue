@@ -1,6 +1,6 @@
 <template>
   <main>
-    Release Notes
+    <iframe src="https://github.com/ethereum/go-ethereum/releases" height="100%" width="100%"></iframe>
   </main>
 </template>
 
