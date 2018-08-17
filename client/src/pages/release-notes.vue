@@ -1,6 +1,6 @@
 <template>
   <main>
-    <iframe src="https://github.com/ethereum/go-ethereum/releases" height="100%" width="100%"></iframe>
+    敬请期待。。。
   </main>
 </template>
 

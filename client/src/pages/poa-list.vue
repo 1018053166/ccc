@@ -1,6 +1,6 @@
 <template>
   <main>
-    <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">申请POA</el-button>
+    <el-button style="margin-left: 10px;" @click="handleCreate" type="primary">添加机构</el-button>
     <el-table
       :data="members"
       style="width: 100%">
@@ -49,13 +49,14 @@
       </el-table-column>
     </el-table>
     <el-dialog 
-      v-loading="loading"
+      v-loading.fullscreen.lock="loading"
       element-loading-text="拼命上链中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
       :title="textMap[dialogStatus]" 
-      :visible.sync="dialogFormVisible">
-      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
+      :visible.sync="dialogFormVisible"
+      width="40%">
+      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px" style='width: 400px; margin-left:50px;'>
         
         <!-- <el-form-item label="公司ID" prop="companyid">
           <el-input v-model="temp.companyid"></el-input>

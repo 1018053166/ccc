@@ -1,6 +1,6 @@
 <template>
   <main>
-    区块概览
+    敬请期待。。。
   </main>
 </template>
 

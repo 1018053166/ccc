@@ -1,16 +1,16 @@
 <template>
   <main>
-    <!-- <el-row :gutter="20">
-      <el-col :span="12" :offset="6">您可以选择创建一个联盟或者加入一个联盟</el-col>
-    </el-row> -->
-    <el-row :gutter="20">
-      <el-col :span="12" :offset="6"><el-button type="primary" @click="handleCreate">创建联盟</el-button></el-col>
+    <el-row :gutter="20" style="margin-bottom: 20px;margin-top: 100px;font-size:200%;">
+      <el-col :span="16" :offset="6">您可以选择创建一个联盟或者加入一个联盟</el-col>
     </el-row>
-    <!-- <el-row :gutter="20">
-      <el-col :span="12" :offset="6"><el-button type="primary">加入联盟</el-button></el-col>
-    </el-row> -->
-    <el-dialog title="创建联盟" :visible.sync="dialogFormVisible">
-      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
+    <el-row :gutter="20" style="margin-bottom: 20px;margin-top: 100px;">
+      <el-col :span="12" :offset="10"><el-button type="primary" @click="handleCreate" icon="el-icon-circle-plus">&nbsp;&nbsp;创建联盟</el-button></el-col>
+    </el-row>
+    <el-row :gutter="20" style="margin-bottom: 20px;margin-top: 50px;">
+      <el-col :span="12" :offset="10"><el-button type="primary" icon="el-icon-upload2" disabled>&nbsp;&nbsp;加入联盟</el-button></el-col>
+    </el-row>
+    <el-dialog title="创建联盟" :visible.sync="dialogFormVisible" width="40%">
+      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px" style='width: 400px; margin-left:50px;'>
         
         <el-form-item label="成员名称" prop="company">
           <el-input v-model="temp.company"></el-input>
@@ -36,7 +36,7 @@
         <!-- <el-form-item label="CORS地址" prop="rpccorsdomain">
           <el-input v-model="temp.rpccorsdomain"></el-input>
         </el-form-item> -->
-        <el-form-item label="区块数据存储路径" prop="datadir">
+        <el-form-item label="存储路径" prop="datadir">
           <el-input v-model="temp.datadir"></el-input>
         </el-form-item>
         <el-form-item label="描述" prop="remark">
@@ -137,10 +137,10 @@
 </script>
 
 <style scoped>
-  .el-row {
+  /* .el-row {
     margin-bottom: 20px;
-    margin-top: 100px;
-  }
+    margin-top: 50px;
+  } */
   .el-col {
     border-radius: 4px;
   }

@@ -1,6 +1,6 @@
 <template>
   <main>
-    消息列表
+    敬请期待。。。
   </main>
 </template>
 

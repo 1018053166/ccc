@@ -1,6 +1,6 @@
 <template>
   <main>
-    POA通道管理
+    敬请期待。。。
   </main>
 </template>
 

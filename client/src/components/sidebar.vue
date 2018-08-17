@@ -32,7 +32,7 @@
       return {
         isCollapse: false,
         items: [{
-          icon: 'icon-location',
+          icon: 'icon-menu',
           title: '概览',
           index: '1',
           subs: [{
@@ -43,21 +43,21 @@
             title: '联盟信息'
           }]
         }, {
-          icon: 'icon-location',
+          icon: 'icon-news',
           title: '联盟管理',
           index: '2',
           subs: [{
             index: '/poa-list',
-            title: 'POA成员列表'
+            title: '成员列表'
           }, {
             index: '/poa-vote',
-            title: 'POA投票平台'
+            title: '投票平台'
           }, {
             index: '/poa-channel',
-            title: 'POA通道管理'
+            title: '通道管理'
           }]
         }, {
-          icon: 'icon-location',
+          icon: 'icon-more-outline',
           title: '区块链',
           index: '3',
           subs: [{
@@ -77,7 +77,7 @@
             title: '区块链浏览器'
           }]
         }, {
-          icon: 'icon-location',
+          icon: 'icon-message',
           title: '消息管理',
           index: '4',
           subs: [{

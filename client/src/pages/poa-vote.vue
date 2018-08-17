@@ -1,7 +1,7 @@
 <template>
   <main>
     <el-table
-      v-loading="loading"
+      v-loading.fullscreen.lock="loading"
       element-loading-text="拼命上链中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
