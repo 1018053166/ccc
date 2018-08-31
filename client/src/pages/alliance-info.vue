@@ -1,6 +1,6 @@
 <template>
   <main>
-    联盟信息
+    敬请期待。。。
   </main>
 </template>
 

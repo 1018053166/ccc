@@ -1,6 +1,6 @@
 <template>
   <main>
-    <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">申请POA</el-button>
+    <el-button style="margin-left: 10px;" @click="handleCreate" type="primary">添加机构</el-button>
     <el-table
       :data="members"
       style="width: 100%">
@@ -35,22 +35,28 @@
         label="状态">
       </el-table-column>
       <el-table-column
+        prop="mine"
+        label="能否挖矿">
+      </el-table-column>
+      <el-table-column
         fixed="right"
         label="操作"
         width="100">
         <template slot-scope="scope">
-          <el-button @click="handleUpdate(scope.row)" type="primary" size="small" v-if="scope.row.owner.toLocaleLowerCase() == coinbase">编辑</el-button>
+          <el-button @click="handleUpdate(scope.row)" type="primary" size="small" v-if="scope.row.owner.toLocaleLowerCase() == coinbase.toLocaleLowerCase()">编辑</el-button>
+          <el-button @click="handleMine(scope.row)" type="primary" size="small" v-if="scope.row.mine === 'false' && mines.indexOf(coinbase) > -1">投票</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog 
-      v-loading="loading"
+      v-loading.fullscreen.lock="loading"
       element-loading-text="拼命上链中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
       :title="textMap[dialogStatus]" 
-      :visible.sync="dialogFormVisible">
-      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
+      :visible.sync="dialogFormVisible"
+      width="40%">
+      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px" style='width: 400px; margin-left:50px;'>
         
         <!-- <el-form-item label="公司ID" prop="companyid">
           <el-input v-model="temp.companyid"></el-input>
@@ -88,7 +94,9 @@
       return {
         members: [],
         enodes: [],
+        mines: [],
         coinbase: '',
+        companyid: null,
         loading: false,
         temp: {
           companyid: '',
@@ -120,6 +128,12 @@
         return this.axios('/api/company').then(res => {
           // this.members = _.filter(res.data, ['stat', '1']);
           res.data.map(member => {
+            if (member.owner.toLowerCase() == this.coinbase.toLowerCase()) this.companyid = member.companyid
+            if (_.indexOf(this.mines, member.owner) > -1) {
+              member.mine = 'true'
+            } else {
+              member.mine ='false'
+            }
             if (_.indexOf(this.enodes, member.enode) > -1) {
               this.members.push(member)
             }
@@ -136,6 +150,12 @@
         return this.axios('/api/enode').then(res => {
           console.log(res)
           this.enodes = res.data
+        })
+      },
+      queryMines() {
+        return this.axios('/api/mine').then(res => {
+          console.log(res)
+          this.mines = res.data
         })
       },
       resetTemp() {
@@ -176,7 +196,7 @@
               this.dialogFormVisible = false
               this.$notify({
                 title: '成功',
-                message: '创建成功',
+                message: res.data.message,
                 type: 'success',
                 duration: 2000
               })
@@ -216,18 +236,44 @@
               this.dialogFormVisible = false
               this.$notify({
                 title: '成功',
-                message: '创建成功',
+                message: res.data.message,
                 type: 'success',
                 duration: 2000
               })
             })
           }
         })
+      },
+      handleMine(row, vote) {
+        this.loading = true
+        this.axios.post('/api/v1', {
+            "source": "ccc",
+            "method": "minevote",
+            "argv": {
+                "_from": this.coinbase,
+                "_fromcompanyid":this.companyid,
+                "_tocompanyid": row.companyid
+            }
+        })
+        .then(res => {
+          this.loading = false
+          console.log(res);
+          this.$notify({
+                title: '成功',
+                message: res.data.message,
+                type: 'success',
+                duration: 2000
+              })
+        })
+        .catch(error => {
+          console.log(error);
+        });
       }
     },
     mounted: async function() {
       await this.queryCoinbase()
       await this.queryEnodes()
+      await this.queryMines()
       await this.queryList()
     }
     

@@ -1,6 +1,6 @@
 <template>
   <main>
-    节点监控
+    敬请期待。。。
   </main>
 </template>
 
